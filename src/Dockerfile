@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1
 # AS build
 WORKDIR /app
 
@@ -13,7 +13,7 @@ COPY . ./aspnetapp
 WORKDIR /app/aspnetapp
 RUN dotnet publish -c Release -o out
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 WORKDIR /app
-COPY --from=build /app/aspnetapp/out ./
+COPY --from=0 /app/aspnetapp/out ./
 ENTRYPOINT ["dotnet", "Otus.Teaching.PromoCodeFactory.WebHost.dll"]
