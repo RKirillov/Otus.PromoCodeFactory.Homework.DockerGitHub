@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Otus.Teaching.PromoCodeFactory.Core.Abstractions.Repositories;
@@ -18,17 +19,28 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
 {
     public class Startup
     {
+        public IWebHostEnvironment Environment { get; }
+        public IConfiguration Configuration { get; }
+
+        public Startup(IWebHostEnvironment environment, IConfiguration configuration)
+        {
+            Environment = environment;
+            Configuration = configuration;
+        }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddMvcOptions(x=> 
+            services.AddControllers().AddMvcOptions(x =>
                 x.SuppressAsyncSuffixInActionNames = false);
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbInitializer, EfDbInitializer>();
+
+            var postgresConnectionString = Configuration.GetConnectionString("Postgres");
             services.AddDbContext<DataContext>(x =>
             {
-                x.UseSqlite("Filename=PromoCodeFactoryDb.sqlite");
+                // x.UseSqlite("Filename=PromoCodeFactoryDb.sqlite");
+                x.UseNpgsql(postgresConnectionString);
                 x.UseLazyLoadingProxies();
             });
 
@@ -56,7 +68,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
             {
                 x.DocExpansion = "list";
             });
-            
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -65,7 +77,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
             {
                 endpoints.MapControllers();
             });
-            
+
             dbInitializer.InitializeDb();
         }
     }
