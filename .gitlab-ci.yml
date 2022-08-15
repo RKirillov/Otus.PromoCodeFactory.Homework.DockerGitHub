@@ -8,6 +8,8 @@ stages:
 
 build:
   stage: build
+  before_script:
+    - docker version
   script:
     - cd src
     - 'docker build -t $CI_REGISTRY:$CI_PIPELINE_IID -t $CI_REGISTRY:latest .'
