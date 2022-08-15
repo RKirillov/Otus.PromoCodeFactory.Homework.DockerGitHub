@@ -1,7 +1,7 @@
-image: docker
+image: docker:20.10.10
 
-# services:
-#   - docker:dind
+services:
+        - docker:20.10.10-dind
 
 stages:
   - build
