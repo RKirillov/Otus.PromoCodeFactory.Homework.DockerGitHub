@@ -12,3 +12,4 @@ build:
     - cd src
     - 'docker build -t $CI_REGISTRY:$CI_PIPELINE_IID -t $CI_REGISTRY:latest .'
     - 'docker push $CI_REGISTRY'
+    
