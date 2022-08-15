@@ -1,0 +1,18 @@
+image: docker:20.10.10
+
+services:
+  - docker:20.10.10-dind
+
+stages:
+  - build
+
+build:
+  stage: build
+  before_script:
+    - docker version
+  script:
+    - cd src
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+    - docker build -t $CI_REGISTRY_IMAGE .
+    - docker push $CI_REGISTRY_IMAGE
+    
