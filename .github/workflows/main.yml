@@ -29,6 +29,9 @@ jobs:
         username: ${{ env.DOCKER_HUB_USERNAME }}
         password: ${{ env.DOCKER_HUB_ACCESS_TOKEN }}
 
+    - name: Set working directory
+      run: cd ./Otus.Teaching.PromoCodeFactory.WebHost
+
     - name: Extract API version
       id: api-version
       run: |
@@ -42,4 +45,5 @@ jobs:
 
     - name: Set up Docker Compose
       run: |
+        echo "API_VERSION=${{ steps.api-version.outputs.API_VERSION }}" > .env
         docker-compose -f docker-compose.yml up --build -d
