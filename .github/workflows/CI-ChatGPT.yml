@@ -23,7 +23,7 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Build .NET solution
-      run: dotnet build --no-restore --configuration Release
+      run: dotnet build  --configuration Release
       working-directory: src/Otus.Teaching.PromoCodeFactory.WebHost
 
     - name: Publish .NET solution
