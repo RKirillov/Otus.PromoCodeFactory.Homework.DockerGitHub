@@ -50,7 +50,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
             {
                 app.UseHsts();
             }
-
+             
             app.UseOpenApi();
             app.UseSwaggerUi(x =>
             {
