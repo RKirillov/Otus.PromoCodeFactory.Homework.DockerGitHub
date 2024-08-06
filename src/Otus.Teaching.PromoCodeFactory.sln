@@ -12,8 +12,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8BAF82CC-41A1-4444-B8EA-A3A566C05C06}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
-		..\.github\workflows\ChatGPT.yml = ..\.github\workflows\ChatGPT.yml
-		..\.github\workflows\dotnet.yml = ..\.github\workflows\dotnet.yml
+		..\.github\workflows\CI-dotnet.yml = ..\.github\workflows\CI-dotnet.yml
+		..\.github\workflows\CI-ChatGPT.yml = ..\.github\workflows\CI-ChatGPT.yml
 	EndProjectSection
 EndProject
 Global
