@@ -8,6 +8,7 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+  workflow_dispatch: 
 
 jobs:
   build:
@@ -15,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    #The actions/checkout action clones the GitHub repo to $GITHUB_WORKSPACE to accomplish various jobs, such as building, testing, and deploying the code
     - uses: actions/checkout@v4
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
