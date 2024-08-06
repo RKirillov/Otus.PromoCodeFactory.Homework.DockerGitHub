@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Build and Deploy .NET 8 Application
 
 on:
   push:
@@ -7,49 +7,40 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch: 
-
-env:
-  DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-  DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
 
-    #- name: Setup .NET Core
-    #  uses: actions/setup-dotnet@v4
-    #  with:
-    #    dotnet-version: 8.0.x
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Build .NET solution
+      run: dotnet build --configuration Release
+
+    - name: Publish .NET solution
+      run: dotnet publish --configuration Release --output ./publish
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
-    - name: Log in to Docker Hub
+    - name: Login to Docker Hub
       uses: docker/login-action@v2
       with:
-        username: ${{ env.DOCKER_HUB_USERNAME }}
-        password: ${{ env.DOCKER_HUB_ACCESS_TOKEN }}
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Set working directory
-      run: cd ./Otus.Teaching.PromoCodeFactory.WebHost
-
-    - name: Extract API version
-      id: api-version
+    - name: Build and push Docker images
       run: |
-        API_VERSION=$(cat ./Otus.Teaching.PromoCodeFactory.WebHost/Properties/AssemblyInfo.cs | grep 'AssemblyVersion' | sed 's/.*"\(.*\)".*/\1/')
-        echo "::set-output name=API_VERSION::$API_VERSION"
+        docker build -t rkirillov/promocode-factory-api:latest -f Dockerfile .
+        docker push rkirillov/promocode-factory-api:latest
 
-    - name: Build and push promocode-factory-api image
-      run: |
-        docker build -t rkirillov/promocode-factory-api:${{ steps.api-version.outputs.API_VERSION }} src/Otus.Teaching.Pcf.Administration/
-        docker push rkirillov/promocode-factory-api:${{ steps.api-version.outputs.API_VERSION }}
-
-    - name: Set up Docker Compose
-      run: |
-        echo "API_VERSION=${{ steps.api-version.outputs.API_VERSION }}" > .env
-        docker-compose -f docker-compose.yml up --build -d
+    - name: Docker Compose up
+      run: docker-compose up -d
