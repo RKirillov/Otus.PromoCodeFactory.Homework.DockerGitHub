@@ -24,9 +24,11 @@ jobs:
 
     - name: Build .NET solution
       run: dotnet build --no-restore --configuration Release
+      working-directory: src/Otus.Teaching.PromoCodeFactory.WebHost
 
     - name: Publish .NET solution
       run: dotnet publish --configuration Release --output ./publish
+      working-directory: src/Otus.Teaching.PromoCodeFactory.WebHost
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
