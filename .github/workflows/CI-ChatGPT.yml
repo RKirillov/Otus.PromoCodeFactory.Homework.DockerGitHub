@@ -14,9 +14,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
+      # Шаг 1: собираем сервисы в режиме тестирования
+      - uses: actions/checkout@v4
+      - name: Build the stack
+        run: docker-compose -f docker-compose.yml up -d --build
+ 
     
       #- name: Set up .NET
       #uses: actions/setup-dotnet@v3
@@ -58,5 +60,3 @@ jobs:
     #    docker push rkirillov/promocode-factory-api:latest
 
       # Шаг 1: собираем сервисы в режиме тестирования
-    - name: Run docker-compose
-      run: docker-compose up -d
