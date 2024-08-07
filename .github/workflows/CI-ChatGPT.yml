@@ -15,29 +15,30 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
-    - name: Set up .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '8.0.x'
+    
+      #- name: Set up .NET
+      #uses: actions/setup-dotnet@v3
+      #with:
+      #  dotnet-version: '8.0.x'
 
-    - name: Build .NET solution
-      run: dotnet build  --configuration Release
-      working-directory: ./Otus.Teaching.PromoCodeFactory.WebHost
+    #- name: Build .NET solution
+    #  run: dotnet build  --configuration Release
+    #  working-directory: ./Otus.Teaching.PromoCodeFactory.WebHost
 
-    - name: Publish .NET solution
-      run: dotnet publish --configuration Release --output ./publish
-      working-directory: ./Otus.Teaching.PromoCodeFactory.WebHost
+    #- name: Publish .NET solution
+    #  run: dotnet publish --configuration Release --output ./publish
+    #  working-directory: ./Otus.Teaching.PromoCodeFactory.WebHost
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      uses: docker/setup-buildx-action@v3
 
     - name: Login to Docker Hub
-      uses: docker/login-action@v2
+      uses: docker/login-action@v3
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        username: ${{ secrets.DOCKER_USERNAME_DEF }}
+        password: ${{ secrets.DOCKER_PASSWORD_DEF }}
 
     - name: Build and push Docker images
       run: |
