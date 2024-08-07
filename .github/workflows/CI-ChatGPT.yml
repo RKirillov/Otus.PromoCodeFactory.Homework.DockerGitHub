@@ -40,15 +40,20 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build and push Docker Postgre
-      run: |
-        docker build -t rkirillov/promocode-factory-db:latest -f Dockerfile .
-        docker push rkirillov/promocode-factory-db:latest
+    - name: Docker Build and Push
+      uses: docker/build-push-action@v3
+      with:
+         context: ./src
+         file: ./Dockerfile
+    #- name: Build and push Docker Postgre
+    #  run: |
+    #    docker build -t rkirillov/promocode-factory-db:latest -f Dockerfile .
+    #    docker push rkirillov/promocode-factory-db:latest
 
-    - name: Build and push Docker API
-      run: |
-        docker build -t rkirillov/promocode-factory-api:latest -f Dockerfile .
-        docker push rkirillov/promocode-factory-api:latest
+    #- name: Build and push Docker API
+    #  run: |
+    #    docker build -t rkirillov/promocode-factory-api:latest -f Dockerfile .
+    #    docker push rkirillov/promocode-factory-api:latest
 
     - name: Docker Compose up
       run: docker-compose up -d
