@@ -31,20 +31,20 @@ jobs:
     #  run: dotnet publish --configuration Release --output ./publish
     #  working-directory: ./Otus.Teaching.PromoCodeFactory.WebHost
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
+    #- name: Set up Docker Buildx
+    #  uses: docker/setup-buildx-action@v3
 
-    - name: Login to Docker Hub
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+    #- name: Login to Docker Hub
+    #  uses: docker/login-action@v3
+    #  with:
+    #    username: ${{ secrets.DOCKER_USERNAME }}
+    #    password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Docker Build and Push
-      uses: docker/build-push-action@v3
-      with:
-         context: .
-         file: ./Dockerfile
+    #- name: Docker Build and Push
+    #  uses: docker/build-push-action@v3
+    #  with:
+    #     context: .
+    #     file: ./Dockerfile
     #- name: Build and push Docker Postgre
     #  run: |
     #    docker build -t rkirillov/promocode-factory-db:latest -f Dockerfile .
