@@ -40,7 +40,12 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME_DEF }}
         password: ${{ secrets.DOCKER_PASSWORD_DEF }}
 
-    - name: Build and push Docker images
+    - name: Build and push Docker Postgre
+      run: |
+        docker build -t rkirillov/promocode-factory-db:latest -f Dockerfile .
+        docker push rkirillov/promocode-factory-db:latest
+
+    - name: Build and push Docker API
       run: |
         docker build -t rkirillov/promocode-factory-api:latest -f Dockerfile .
         docker push rkirillov/promocode-factory-api:latest
