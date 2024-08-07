@@ -58,5 +58,5 @@ jobs:
     #    docker push rkirillov/promocode-factory-api:latest
 
       # Шаг 1: собираем сервисы в режиме тестирования
-    - name: Build the stack
-      run: docker-compose -f docker-compose.yml up -d --build
+    - name: Run docker-compose
+      run: docker-compose up -d
