@@ -63,4 +63,4 @@ jobs:
         with:
           name: dotnet-publish
           path: |
-            src/Otus.Teaching.PromoCodeFactory.WebHost/bin/Release/net8.0/publish
+            out
