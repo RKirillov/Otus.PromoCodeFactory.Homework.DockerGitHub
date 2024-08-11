@@ -49,9 +49,9 @@ jobs:
       - name: Docker Build and Push
         uses: docker/build-push-action@v4
         with:
-          context: "{{defaultContext}}:base"
+          context: .
+          file: ./src/Dockerfile
           load: true
-          tags: my-base-image:latest
 
       - name: Push Docker image
         run: |
