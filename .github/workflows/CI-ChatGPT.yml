@@ -40,18 +40,18 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
-      - name: Docker Build and Push
-        uses: docker/build-push-action@v3
-        with:
-          context: ./src  # Adjusting the context to where your Dockerfile is located
-          file: ./Dockerfile  # Adjust if the Dockerfile is inside the src directory
-          #push: true
-
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Docker Build and Push
+        uses: docker/build-push-action@v4
+        with:
+          context: ./src  # Adjusting the context to where your Dockerfile is located
+          file: ./Dockerfile  # Adjust if the Dockerfile is inside the src directory
+          #push: true
 
       - name: Push Docker image
         run: |
