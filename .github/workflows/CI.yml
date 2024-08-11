@@ -59,8 +59,7 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/promocode-factory-api:latest
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dotnet-publish
-          path: |
-            /app
+          path: path/to/artifact/
