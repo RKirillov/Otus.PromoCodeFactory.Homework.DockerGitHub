@@ -58,8 +58,9 @@ jobs:
           push: true  # This triggers the push to the Docker registry
           tags: ${{ secrets.DOCKER_USERNAME }}/promocode-factory-api:latest
 
-      - name: Archive build output
+      - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: build-output
-          path: content
+          name: dotnet-publish
+          path: |
+            src/Otus.Teaching.PromoCodeFactory.WebHost/bin/Release/net8.0/publish
