@@ -46,7 +46,6 @@ jobs:
           context: ./src  # Adjusting the context to where your Dockerfile is located
           file: ./Dockerfile  # Adjust if the Dockerfile is inside the src directory
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/promocode-factory-api:latest
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
