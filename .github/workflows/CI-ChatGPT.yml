@@ -49,9 +49,14 @@ jobs:
       - name: Docker Build and Push
         uses: docker/build-push-action@v4
         with:
-          context: .
-          file: ./src/Dockerfile
-          load: true
+#          context: .
+#          file: ./src/Dockerfile
+#          load: true
+
+          context: ./src  # Ensure this points to the correct directory containing the Dockerfile
+          file: ./src/Dockerfile  # Adjust if Dockerfile is not in src
+          push: true  # This triggers the push to the Docker registry
+          tags: ${{ secrets.DOCKER_USERNAME }}/promocode-factory-api:latest
 
       - name: Push Docker image
         run: |
