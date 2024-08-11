@@ -49,9 +49,9 @@ jobs:
       - name: Docker Build and Push
         uses: docker/build-push-action@v4
         with:
-          context: . # Adjusting the context to where your Dockerfile is located
-          file: ./app/Dockerfile  # Adjust if the Dockerfile is inside the src directory
-          #push: true
+          context: "{{defaultContext}}:base"
+          load: true
+          tags: my-base-image:latest
 
       - name: Push Docker image
         run: |
