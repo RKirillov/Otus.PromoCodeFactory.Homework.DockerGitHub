@@ -63,4 +63,4 @@ jobs:
         with:
           name: dotnet-publish
           path: |
-            out
+            /app
