@@ -50,7 +50,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ./src  # Adjusting the context to where your Dockerfile is located
-          file: ./Dockerfile  # Adjust if the Dockerfile is inside the src directory
+          file: ./src/Dockerfile  # Adjust if the Dockerfile is inside the src directory
           #push: true
 
       - name: Push Docker image
