@@ -59,7 +59,9 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/promocode-factory-api:latest
 
       - name: Docker Run cmd
-        run: echo "$PWD"
+        run: | 
+            echo "$PWD"
+            ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
