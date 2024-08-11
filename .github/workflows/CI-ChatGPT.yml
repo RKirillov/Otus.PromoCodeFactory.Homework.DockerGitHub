@@ -37,6 +37,9 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
       - name: Docker Build and Push
         uses: docker/build-push-action@v3
         with:
