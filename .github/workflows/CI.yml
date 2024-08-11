@@ -60,6 +60,7 @@ jobs:
 
       - name: Docker Run cmd
         run: | 
+            cd ..
             echo "$PWD"
             ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
 
