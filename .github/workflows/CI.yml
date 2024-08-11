@@ -60,10 +60,9 @@ jobs:
 
       - name: Docker Run cmd
         run: | 
-            cd ..
-            cd ..
-            echo "$PWD"
-            ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
+            apt-get update
+            apt-get install tree
+            tree -d
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
