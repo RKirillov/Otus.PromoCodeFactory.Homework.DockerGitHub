@@ -1,4 +1,4 @@
-name: Build and Deploy .NET 8 Application
+name: Build .NET 8 Application
 
 on:
   push:
