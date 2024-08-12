@@ -56,8 +56,9 @@ jobs:
           context: ./src  # Ensure this points to the correct directory containing the Dockerfile
           file: ./src/Dockerfile  # Adjust if Dockerfile is not in src
           push: true  # This triggers the push to the Docker registry
+          tags: ${{ secrets.DOCKER_USERNAME }}/promocode-factory-api:latest
           #tags: ${{ secrets.DOCKER_USERNAME }}/promocode-factory-api:latest
-          tags: ghcr.io/${{ github.repository_owner }}/promocode-factory-api:latest
+#          tags: ghcr.io/${{ github.repository_owner }}/promocode-factory-api:latest
 
           
       - name: Logout from Docker Hub
